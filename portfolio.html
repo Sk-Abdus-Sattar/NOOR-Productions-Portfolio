@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOOR Productions — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #08090b;
+    --surface: #0f1115;
+    --card:    #141619;
+    --border:  #1e2025;
+    --gold:    #c9a84c;
+    --gold2:   #e8c97a;
+    --white:   #f0ece4;
+    --muted:   #6b6f78;
+    --red:     #d42b2b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .header-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('Portfolio/NOOR Productions Branding.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(18px) brightness(0.18) saturate(0.6);
+    transform: scale(1.08);
+    z-index: 0;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .header-badge {
+    width: clamp(140px, 22vw, 210px);
+    height: clamp(140px, 22vw, 210px);
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 28px;
+    filter: drop-shadow(0 0 40px rgba(201,168,76,0.25));
+  }
+
+  .header-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .header-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    line-height: 1.2;
+  }
+
+  .header-name span { color: var(--gold); font-style: italic; }
+
+  /* ── INTRO SECTION ── */
+  .intro {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 100px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #9a9fa8;
+    line-height: 1.9;
+  }
+
+  .intro p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── PROJECT SECTION ── */
+  .project {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .project-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .project-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .project-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .project-desc {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-desc-block h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .project-desc-block p {
+    font-size: 0.92rem;
+    color: #7a7f8a;
+    line-height: 1.8;
+  }
+
+  .project-desc-block ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-desc-block ul li {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SCREENSHOTS ── */
+  .screenshots-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .screenshots-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* NOOR Productions — flex wrap, no stretching */
+  .scr-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .scr-strip .scr-item {
+    flex: 1 1 180px;
+    max-width: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    background: var(--card);
+  }
+
+  .scr-strip .scr-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+  }
+
+  .scr-strip .scr-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* MedStore — 2-row grid of phone screenshots */
+  .scr-phone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    align-items: start;
+  }
+
+  .scr-phone-grid .scr-item {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card);
+  }
+
+  .scr-phone-grid .scr-item:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  .scr-phone-grid .scr-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Bapi Store — masonry-style flex layout */
+  .scr-bapi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .scr-bapi .scr-item {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card);
+    flex: 1 1 160px;
+    max-width: 260px;
+  }
+
+  .scr-bapi .scr-item.featured {
+    flex: 1 1 220px;
+    max-width: 300px;
+  }
+
+  .scr-bapi .scr-item:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  .scr-bapi .scr-item img { width: 100%; height: auto; display: block; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: zoom-out;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-height: 90vh;
+    max-width: 90vw;
+    border-radius: 8px;
+    object-fit: contain;
+    cursor: default;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 20px; right: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 2px;
+    background: var(--surface);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 100px 24px 120px;
+    text-align: center;
+  }
+
+  .contact-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .contact p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 400;
+    width: 100%;
+    max-width: 420px;
+    transition: border-color 0.25s, background 0.25s;
+    background: var(--card);
+  }
+
+  .contact-link:hover {
+    border-color: var(--gold);
+    background: #16140f;
+  }
+
+  .contact-link .cl-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-link .cl-icon.wa { background: #1a3d25; }
+  .contact-link .cl-icon.em { background: #1a1f3a; }
+
+  .contact-link .cl-info { text-align: left; }
+  .contact-link .cl-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .contact-link .cl-val { font-size: 0.88rem; color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  footer span { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .project-desc { grid-template-columns: 1fr; gap: 24px; }
+    .scr-bapi { grid-template-columns: 1fr 1fr; }
+    .scr-bapi .scr-item.featured { grid-row: auto; grid-column: 1 / -1; }
+    .project-header { grid-template-columns: 1fr; }
+    .scr-phone-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-bg"></div>
+  <div class="header-content">
+    <p class="header-eyebrow">Portfolio · 2026</p>
+    <img class="header-badge" src="Portfolio/Noor Productions Logo.png" alt="NOOR Productions Logo">
+    <h1 class="header-name">NOOR <span>Productions</span></h1>
+    <p class="header-sub">Web Design &amp; Digital Architecture</p>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="intro reveal">
+  <p>
+    We build <strong>digital experiences</strong> that make businesses look premium, move fast, and convert. Every project below was designed, developed, and delivered by NOOR Productions — from a single landing page to a fully functional e-commerce system.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT 01 — NOOR PRODUCTIONS AGENCY SITE
+════════════════════════════════════════════ -->
+<section class="project reveal">
+  <div class="project-header">
+    <div>
+      <p class="project-number">Project 01</p>
+      <h2 class="project-name">NOOR <em>Productions</em><br>Agency Site</h2>
+      <span class="project-tag">Agency · Freelance Portal · Mobile First</span>
+    </div>
+  </div>
+
+  <div class="project-desc">
+    <div class="project-desc-block">
+      <h4>About</h4>
+      <p>
+        The official NOOR Productions mobile portal — a dark, premium agency site that showcases services, pricing, and a project catalog. Features a smooth image carousel, lightbox viewer, and a floating WhatsApp contact panel.
+      </p>
+    </div>
+    <div class="project-desc-block">
+      <h4>Built With</h4>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Vanilla JS</li>
+        <li>Mobile First</li>
+        <li>Lightbox</li>
+        <li>Auto Carousel</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="screenshots-label">Screenshots</p>
+  <div class="scr-strip">
+    <div class="scr-item" onclick="openLB('Portfolio/scr7.png')">
+      <img src="Portfolio/scr7.png" alt="NOOR Productions - Hero & About">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr9.png')">
+      <img src="Portfolio/scr9.png" alt="NOOR Productions - Services Table">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/catalog.png')">
+      <img src="Portfolio/catalog.png" alt="NOOR Productions - Project Catalog">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr8.png')">
+      <img src="Portfolio/scr8.png" alt="NOOR Productions - Contacts">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT 02 — MEDSTORE BARDHAMAN
+════════════════════════════════════════════ -->
+<section class="project reveal">
+  <div class="project-header">
+    <div>
+      <p class="project-number">Project 02</p>
+      <h2 class="project-name">Med<em>Store</em><br>Bardhaman</h2>
+      <span class="project-tag">Pharmacy App · E-Commerce · Neo-Brutalist</span>
+    </div>
+  </div>
+
+  <div class="project-desc">
+    <div class="project-desc-block">
+      <h4>About</h4>
+      <p>
+        A full-featured pharmacy web app for a local medicine store in Bardhaman. Customers can browse medicines, view ingredients and availability, add to cart, and place orders via WhatsApp. Includes a live Google Maps integration and a contacts page.
+      </p>
+    </div>
+    <div class="project-desc-block">
+      <h4>Built With</h4>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Vanilla JS</li>
+        <li>Google Maps API</li>
+        <li>WhatsApp Order</li>
+        <li>Cart System</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="screenshots-label">Screenshots</p>
+  <div class="scr-phone-grid">
+    <div class="scr-item" onclick="openLB('Portfolio/scr10.png')">
+      <img src="Portfolio/scr10.png" alt="MedStore - Home with Hero">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr13.png')">
+      <img src="Portfolio/scr13.png" alt="MedStore - Medicine Grid">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr14.png')">
+      <img src="Portfolio/scr14.png" alt="MedStore - Home with Nav">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr19.png')">
+      <img src="Portfolio/scr19.png" alt="MedStore - Sidebar">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr12.png')">
+      <img src="Portfolio/scr12.png" alt="MedStore - Product Detail">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr11.png')">
+      <img src="Portfolio/scr11.png" alt="MedStore - Cart">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr18.png')">
+      <img src="Portfolio/scr18.png" alt="MedStore - Location">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr16.png')">
+      <img src="Portfolio/scr16.png" alt="MedStore - Contacts">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROJECT 03 — BAPI STORE
+════════════════════════════════════════════ -->
+<section class="project reveal">
+  <div class="project-header">
+    <div>
+      <p class="project-number">Project 03</p>
+      <h2 class="project-name">Bapi <em>Store</em><br>Bardhaman</h2>
+      <span class="project-tag">Neighbourhood Store · E-Commerce · Dark Luxury</span>
+    </div>
+  </div>
+
+  <div class="project-desc">
+    <div class="project-desc-block">
+      <h4>About</h4>
+      <p>
+        A premium dark-themed store app for a neighbourhood shop near Curzon Gate, Bardhaman. Features a cinematic hero, featured products, category filtering, a full cart system with WhatsApp ordering, live Google Maps, and store hours.
+      </p>
+    </div>
+    <div class="project-desc-block">
+      <h4>Built With</h4>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Vanilla JS</li>
+        <li>Google Maps API</li>
+        <li>WhatsApp Order</li>
+        <li>Category Filter</li>
+        <li>Side Drawer Nav</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="screenshots-label">Screenshots</p>
+  <div class="scr-bapi">
+    <div class="scr-item featured" onclick="openLB('Portfolio/scr1.png')">
+      <img src="Portfolio/scr1.png" alt="Bapi Store - Hero">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr6.png')">
+      <img src="Portfolio/scr6.png" alt="Bapi Store - Home with Nav">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr17.png')">
+      <img src="Portfolio/scr17.png" alt="Bapi Store - Product Detail">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr2.png')">
+      <img src="Portfolio/scr2.png" alt="Bapi Store - Cart">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr4.png')">
+      <img src="Portfolio/scr4.png" alt="Bapi Store - Location">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr5.png')">
+      <img src="Portfolio/scr5.png" alt="Bapi Store - Sidebar">
+    </div>
+    <div class="scr-item" onclick="openLB('Portfolio/scr3.png')">
+      <img src="Portfolio/scr3.png" alt="Bapi Store - Contacts">
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal">
+  <p class="contact-eyebrow">Get In Touch</p>
+  <h2>Let's build something<br><em style="font-style:italic; color:var(--gold)">remarkable</em> together.</h2>
+  <p>Have a project in mind? Reach out and we'll get back to you within 24 hours.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="https://wa.me/919832596691" target="_blank">
+      <div class="cl-icon wa">💬</div>
+      <div class="cl-info">
+        <span class="cl-label">WhatsApp</span>
+        <span class="cl-val">+91 98325 96691</span>
+      </div>
+    </a>
+    <a class="contact-link" href="mailto:noorproductions.as@gmail.com">
+      <div class="cl-icon em">✉️</div>
+      <div class="cl-info">
+        <span class="cl-label">Email</span>
+        <span class="cl-val">noorproductions.as@gmail.com</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>NOOR Productions</span> · All Rights Reserved · Built with precision.</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <div class="lightbox-close" onclick="closeLB()">ESC · CLOSE</div>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+  // Lightbox
+  function openLB(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLB() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
