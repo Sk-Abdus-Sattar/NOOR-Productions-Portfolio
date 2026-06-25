@@ -497,6 +497,25 @@
     .project-header { grid-template-columns: 1fr; }
     .scr-phone-grid { grid-template-columns: repeat(2, 1fr); }
   }
+/* Add this to your style block */
+.portfolio-link {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+}
+
+.portfolio-link:hover {
+    color: var(--white);
+    border-bottom-color: var(--white);
+    letter-spacing: 0.15em;
+}
 </style>
 </head>
 <body>
@@ -566,7 +585,13 @@
       <img src="Portfolio/scr8.png" alt="NOOR Productions - Contacts">
     </div>
   </div>
-  <p><a href="https://sk-abdus-sattar.github.io/noor-productions/" target="_blank">Link to this website</a></p>
+<p>
+  <a href="https://sk-abdus-sattar.github.io/noor-productions/" 
+     target="_blank" 
+     class="portfolio-link">
+     Link to this website
+  </a>
+</p>
 </section>
 
 <!-- ═══════════════════════════════════════════
