@@ -469,40 +469,6 @@
     background: var(--surface);
   }
 
-  .lightbox-arrow {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--white);
-    font-size: 1.1rem;
-    cursor: pointer;
-    z-index: 3001;
-    transition: background 0.2s ease, border-color 0.2s ease;
-  }
-
-  .lightbox-arrow:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--black);
-  }
-
-  .lightbox-prev { left: 24px; }
-  .lightbox-next { right: 24px; }
-
-  @media (max-width: 640px) {
-    .lightbox-arrow { width: 40px; height: 40px; font-size: 0.95rem; }
-    .lightbox-prev { left: 10px; }
-    .lightbox-next { right: 10px; }
-  }
-
   /* ── CONTACT ── */
   .contact {
     max-width: 700px;
@@ -890,35 +856,17 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLB()">
   <div class="lightbox-close" onclick="closeLB()">ESC · CLOSE</div>
-  <div class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); navLB(-1)">&#10094;</div>
-  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
-  <div class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); navLB(1)">&#10095;</div>
+  <img id="lb-img" src="" alt="">
 </div>
 
 <script>
   // 1. Lightbox Functions
-  let currentGallery = [];
-  let currentIndex = 0;
-
-  function openLB(src, gallery) {
-    currentGallery = gallery || [src];
-    currentIndex = currentGallery.indexOf(src);
-    if (currentIndex === -1) currentIndex = 0;
+  function openLB(src) {
     document.getElementById('lb-img').src = src;
     document.getElementById('lightbox').classList.add('open');
-    updateArrowVisibility();
   }
   function closeLB() {
     document.getElementById('lightbox').classList.remove('open');
-  }
-  function navLB(direction) {
-    if (!currentGallery.length) return;
-    currentIndex = (currentIndex + direction + currentGallery.length) % currentGallery.length;
-    document.getElementById('lb-img').src = currentGallery[currentIndex];
-  }
-  function updateArrowVisibility() {
-    const show = currentGallery.length > 1 ? 'flex' : 'none';
-    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = show);
   }
 
   // 2. Gallery Functions
@@ -938,7 +886,7 @@
     projectData[projectId].forEach(src => {
         const img = document.createElement('img');
         img.src = src;
-        img.onclick = () => openLB(src, projectData[projectId]); 
+        img.onclick = () => openLB(src); 
         grid.appendChild(img);
     });
     document.getElementById('gallery-page').classList.add('open');
@@ -954,10 +902,6 @@
         closeLB();
         closeGallery();
     } 
-    if (document.getElementById('lightbox').classList.contains('open')) {
-        if (e.key === 'ArrowLeft') navLB(-1);
-        if (e.key === 'ArrowRight') navLB(1);
-    }
   });
 
   // 4. Initialization
@@ -974,6 +918,69 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   window.onload = initGallery;
+// 1. Lightbox Functions
+let currentGallery = [];
+let currentIndex = 0;
+
+function openLB(src, gallery) {
+  currentGallery = gallery || [src];
+  currentIndex = currentGallery.indexOf(src);
+  if (currentIndex === -1) currentIndex = 0;
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  updateArrowVisibility();
+}
+function closeLB() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+function navLB(direction) {
+  if (!currentGallery.length) return;
+  currentIndex = (currentIndex + direction + currentGallery.length) % currentGallery.length;
+  document.getElementById('lb-img').src = currentGallery[currentIndex];
+}
+function updateArrowVisibility() {
+  const show = currentGallery.length > 1 ? 'flex' : 'none';
+  document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = show);
+}
+
+// 2. Gallery Functions
+function initGallery() {
+  Object.keys(projectData).forEach(id => {
+      const images = projectData[id];
+      const countBox = document.getElementById(`count-${id}`);
+      const triggerImg = document.querySelector(`#strip-${id} .blurred-img`);
+      if (countBox) countBox.innerText = `+${images.length}`;
+      if (triggerImg) triggerImg.src = images[0]; 
+  });
+}
+
+function openGalleryPage(projectId) {
+  const grid = document.getElementById('gallery-content');
+  grid.innerHTML = '';
+  projectData[projectId].forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.onclick = () => openLB(src, projectData[projectId]); 
+      grid.appendChild(img);
+  });
+  document.getElementById('gallery-page').classList.add('open');
+}
+
+function closeGallery() {
+  document.getElementById('gallery-page').classList.remove('open');
+}
+
+// 3. Global Listeners
+document.addEventListener('keydown', e => { 
+  if (e.key === 'Escape') {
+      closeLB();
+      closeGallery();
+  } 
+  if (document.getElementById('lightbox').classList.contains('open')) {
+      if (e.key === 'ArrowLeft') navLB(-1);
+      if (e.key === 'ArrowRight') navLB(1);
+  }
+});
 </script>
 <div id="gallery-page" class="gallery-page">
   <div class="gallery-header">
