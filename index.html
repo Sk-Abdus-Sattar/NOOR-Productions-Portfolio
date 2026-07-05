@@ -278,6 +278,98 @@
     height: auto;
     display: block;
   }
+/* Styling for the "+X" trigger box */
+/* Remove the @media query so it shows on Desktop too */
+.more-trigger {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    /* Ensure it behaves like the other items in the grid */
+    flex: 1 1 180px;
+    max-width: 280px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+.blurred-img {
+    filter: blur(8px) brightness(0.4);
+    width: 100%;
+    display: block;
+}
+
+.overlay-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.blurred-img {
+    filter: blur(8px) brightness(0.4);
+    width: 100%;
+    display: block;
+}
+
+.overlay-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    color: var(--white);
+    font-weight: 700;
+}
+
+/* New: Fullscreen Gallery Overlay */
+.gallery-page {
+    display: none; /* Hidden by default */
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 2000;
+    padding: 40px 24px;
+    overflow-y: auto;
+}
+
+.gallery-page.open { display: block; }
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.gallery-grid {
+    display: grid;
+    /* Forces items into 150px squares that automatically wrap */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 150px));
+    gap: 15px;
+    justify-content: center; /* Centers the grid on the screen */
+    padding: 20px;
+}
+
+.gallery-grid img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; /* Ensures the image fills the square without distortion */
+    border-radius: 8px;
+    cursor: zoom-in;
+    border: 1px solid var(--border);
+    transition: transform 0.2s;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+}
 
   /* MedStore — 2-row grid of phone screenshots */
   .scr-phone-grid {
@@ -520,6 +612,14 @@
 </style>
 </head>
 <body>
+<!--Device Detector-->
+<script>
+  // Simple device detection logic
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.body.classList.add('mobile');
+  }
+</script>
 
 <!-- HEADER -->
 <header>
@@ -569,33 +669,21 @@
         <li>Lightbox</li>
         <li>Auto Carousel</li>
       </ul>
-      
       <h4 style="margin-top: 20px;">External Link</h4>
-      <p style="margin-bottom: 10px;">View the live agency portal to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/noor-productions/" 
-         target="_blank" 
-         class="portfolio-link">
-         View Live Project →
+      <a href="https://sk-abdus-sattar.github.io/noor-productions/" target="_blank" class="portfolio-link">
+        View Live Project →
       </a>
     </div>
   </div>
 
-  <p class="screenshots-label">Screenshots</p>
-  <div class="scr-strip">
-    <div class="scr-item" onclick="openLB('Portfolio/scr7.png')">
-      <img src="Portfolio/scr7.png" alt="NOOR Productions - Hero & About">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr9.png')">
-      <img src="Portfolio/scr9.png" alt="NOOR Productions - Services Table">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/catalog.png')">
-      <img src="Portfolio/catalog.png" alt="NOOR Productions - Project Catalog">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr8.png')">
-      <img src="Portfolio/scr8.png" alt="NOOR Productions - Contacts">
+  <div class="scr-strip" id="strip-Project01">
+    <div class="scr-item more-trigger" onclick="openGalleryPage('Project01')">
+      <img src="" class="blurred-img" alt="Gallery">
+      <div class="overlay-text" id="count-Project01">+0</div>
     </div>
   </div>
 </section>
+
 
 <!-- ═══════════════════════════════════════════
      PROJECT 02 — MEDSTORE BARDHAMAN
@@ -628,39 +716,17 @@
       </ul>
       <h4 style="margin-top: 20px;">External Link</h4>
       <p style="margin-bottom: 10px;">View the live pharmacy app to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/noor-productions/" 
+      <a href="https://sk-abdus-sattar.github.io/MedStore/" 
          target="_blank" 
          class="portfolio-link">
          View Live Project →
       </a>
     </div>
   </div>
-
-  <p class="screenshots-label">Screenshots</p>
-  <div class="scr-phone-grid">
-    <div class="scr-item" onclick="openLB('Portfolio/scr10.png')">
-      <img src="Portfolio/scr10.png" alt="MedStore - Home with Hero">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr13.png')">
-      <img src="Portfolio/scr13.png" alt="MedStore - Medicine Grid">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr14.png')">
-      <img src="Portfolio/scr14.png" alt="MedStore - Home with Nav">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr19.png')">
-      <img src="Portfolio/scr19.png" alt="MedStore - Sidebar">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr12.png')">
-      <img src="Portfolio/scr12.png" alt="MedStore - Product Detail">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr11.png')">
-      <img src="Portfolio/scr11.png" alt="MedStore - Cart">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr18.png')">
-      <img src="Portfolio/scr18.png" alt="MedStore - Location">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr16.png')">
-      <img src="Portfolio/scr16.png" alt="MedStore - Contacts">
+ <div class="scr-strip" id="strip-Project02">
+    <div class="scr-item more-trigger" onclick="openGalleryPage('Project02')">
+      <img src="" class="blurred-img" alt="Gallery">
+      <div class="overlay-text" id="count-Project02">+0</div>
     </div>
   </div>
 </section>
@@ -697,37 +763,66 @@
       </ul>
       <h4 style="margin-top: 20px;">External Link</h4>
       <p style="margin-bottom: 10px;">View the live neighbourhood store app to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/noor-productions/" 
+      <a href="https://sk-abdus-sattar.github.io/General Store/" 
          target="_blank" 
          class="portfolio-link">
          View Live Project →
       </a>
     </div>
   </div>
+ <div class="scr-strip" id="strip-Project03">
+    <div class="scr-item more-trigger" onclick="openGalleryPage('Project03')">
+      <img src="" class="blurred-img" alt="Gallery">
+      <div class="overlay-text" id="count-Project03">+0</div>
+    </div>
+  </div>
+</section>
 
-  <p class="screenshots-label">Screenshots</p>
-  <div class="scr-bapi">
-    <div class="scr-item featured" onclick="openLB('Portfolio/scr1.png')">
-      <img src="Portfolio/scr1.png" alt="Bapi Store - Hero">
+<!-- ═══════════════════════════════════════════
+     PROJECT 04 — DREAM BOUTIQUE
+════════════════════════════════════════════ -->
+<section class="project reveal">
+  <div class="project-header">
+    <div>
+      <p class="project-number">Project 04</p>
+      <h2 class="project-name">Dream <em>Boutique</em><br>Bardhaman</h2>
+      <span class="project-tag">Fashion App · E-Commerce · Minimalist</span>
     </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr6.png')">
-      <img src="Portfolio/scr6.png" alt="Bapi Store - Home with Nav">
+  </div>
+
+  <div class="project-desc">
+    <div class="project-desc-block">
+      <h4>About</h4>
+      <p>
+        A full-featured fashion web app for a local boutique in Bardhaman. Customers can browse clothing items, view details and availability, add to cart, and place orders via WhatsApp. Includes a live Google Maps integration and a contacts page.
+      </p>
     </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr17.png')">
-      <img src="Portfolio/scr17.png" alt="Bapi Store - Product Detail">
+    <div class="project-desc-block">
+      <h4>Built With</h4>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Vanilla JS</li>
+        <li>Firebase</li>
+        <li>Automated Ordering System</li>
+        <li>Fully Functional E-Commerce Platform</li>
+        <li>Cart System</li>
+      </ul>
+      <h4 style="margin-top: 20px;">External Link</h4>
+      <p style="margin-bottom: 10px;">View the live fashion app to experience the full interaction.</p>
+      <a href="https://sk-abdus-sattar.github.io/Dream-Boutique/" 
+         target="_blank" 
+         class="portfolio-link">
+         View Live Project →
+      </a>
     </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr2.png')">
-      <img src="Portfolio/scr2.png" alt="Bapi Store - Cart">
+  </div>
+ <div class="scr-strip" id="strip-Project04">
+    <div class="scr-item more-trigger" onclick="openGalleryPage('Project04')">
+      <img src="" class="blurred-img" alt="Gallery">
+      <div class="overlay-text" id="count-Project04">+0</div>
     </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr4.png')">
-      <img src="Portfolio/scr4.png" alt="Bapi Store - Location">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr5.png')">
-      <img src="Portfolio/scr5.png" alt="Bapi Store - Sidebar">
-    </div>
-    <div class="scr-item" onclick="openLB('Portfolio/scr3.png')">
-      <img src="Portfolio/scr3.png" alt="Bapi Store - Contacts">
-    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -765,7 +860,7 @@
 </div>
 
 <script>
-  // Lightbox
+  // 1. Lightbox Functions
   function openLB(src) {
     document.getElementById('lb-img').src = src;
     document.getElementById('lightbox').classList.add('open');
@@ -773,19 +868,63 @@
   function closeLB() {
     document.getElementById('lightbox').classList.remove('open');
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+  // 2. Gallery Functions
+  function initGallery() {
+    Object.keys(projectData).forEach(id => {
+        const images = projectData[id];
+        const countBox = document.getElementById(`count-${id}`);
+        const triggerImg = document.querySelector(`#strip-${id} .blurred-img`);
+        if (countBox) countBox.innerText = `+${images.length}`;
+        if (triggerImg) triggerImg.src = images[0]; 
     });
-  }, { threshold: 0.1 });
+  }
 
+  function openGalleryPage(projectId) {
+    const grid = document.getElementById('gallery-content');
+    grid.innerHTML = '';
+    projectData[projectId].forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.onclick = () => openLB(src); 
+        grid.appendChild(img);
+    });
+    document.getElementById('gallery-page').classList.add('open');
+  }
+
+  function closeGallery() {
+    document.getElementById('gallery-page').classList.remove('open');
+  }
+
+  // 3. Global Listeners
+  document.addEventListener('keydown', e => { 
+    if (e.key === 'Escape') {
+        closeLB();
+        closeGallery();
+    } 
+  });
+
+  // 4. Initialization
+  const projectData = {
+    'Project01': ['Portfolio/scr7.png', 'Portfolio/scr9.png', 'Portfolio/catalog.png', 'Portfolio/scr8.png'],
+    'Project02': ['Portfolio/scr10.png', 'Portfolio/scr11.png', 'Portfolio/scr12.png', 'Portfolio/scr13.png', 'Portfolio/scr14.png', 'Portfolio/scr16.png', 'Portfolio/scr18.png', 'Portfolio/scr19.png'],
+    'Project03': ['Portfolio/scr1.png', 'Portfolio/scr2.png', 'Portfolio/scr3.png', 'Portfolio/scr4.png', 'Portfolio/scr5.png', 'Portfolio/scr6.png', 'Portfolio/scr17.png'],
+    'Project04': ['Portfolio/scr30.png', 'Portfolio/scr31.png', 'Portfolio/scr32.png', 'Portfolio/scr33.png', 'Portfolio/scr34.png', 'Portfolio/scr35.png', 'Portfolio/scr36.png']
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  window.onload = initGallery;
 </script>
+<div id="gallery-page" class="gallery-page">
+  <div class="gallery-header">
+    <h2>Screenshots</h2>
+    <span onclick="closeGallery()" style="cursor:pointer;">ESC · CLOSE</span>
+  </div>
+  <div class="gallery-grid" id="gallery-content"></div>
+</div>
 </body>
 </html>
