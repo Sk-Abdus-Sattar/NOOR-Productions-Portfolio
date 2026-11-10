@@ -1,1043 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOOR Productions — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We've moved – NOOR Productions</title>
+<meta name="description" content="This is NOOR Productions' old website. We've moved to noorproductions.in.">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --black:   #08090b;
-    --surface: #0f1115;
-    --card:    #141619;
-    --border:  #1e2025;
-    --gold:    #c9a84c;
-    --gold2:   #e8c97a;
-    --white:   #f0ece4;
-    --muted:   #6b6f78;
-    --red:     #d42b2b;
+  :root{
+    --bg:#06130F; --panel:#0D221C; --border:#1B4A46;
+    --teal:#2DD4BF; --text:#F2EFE6; --muted:#8FA39B;
   }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    min-height:100vh; padding:28px 16px 48px;
+    display:flex; flex-direction:column; align-items:center; gap:22px;
   }
-
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.4;
+  .badge{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--panel); border:1px solid var(--border);
+    color:var(--muted); font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    padding:9px 16px; border-radius:999px;
   }
-
-  /* ── HEADER ── */
-  header {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 24px;
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
+  .badge i{width:9px;height:9px;border-radius:50%;background:#e5646a;display:block}
+  h1{font-size:clamp(26px,5vw,40px);text-align:center;line-height:1.15;font-weight:700}
+  h1 span{color:var(--teal)}
+  .sub{color:var(--muted);text-align:center;max-width:560px;line-height:1.5;margin-top:-8px}
+  .scene{width:100%;max-width:760px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
+  .scene svg{width:100%;height:auto;display:block}
+  .moved{text-align:center}
+  .moved p{color:var(--muted);font-size:15px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+  .cta{
+    display:inline-block; background:var(--teal); color:var(--bg); text-decoration:none;
+    font-weight:700; font-size:clamp(20px,4.5vw,30px); padding:16px 34px; border-radius:18px;
+    transition:transform .15s, box-shadow .15s;
+    box-shadow:0 0 0 0 rgba(45,212,191,.5);
   }
-
-  .header-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('Portfolio/NOOR Productions Branding.png');
-    background-size: cover;
-    background-position: center;
-    filter: blur(18px) brightness(0.18) saturate(0.6);
-    transform: scale(1.08);
-    z-index: 0;
+  .cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,212,191,.35)}
+  .links{
+    width:100%; max-width:760px; display:grid; gap:12px;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   }
-
-  .header-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .links a{
+    display:flex; flex-direction:column; gap:4px; text-decoration:none; color:var(--text);
+    background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px 18px;
+    transition:border-color .15s, transform .15s;
   }
-
-  .header-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 28px;
-  }
-
-  .header-badge {
-    width: clamp(140px, 22vw, 210px);
-    height: clamp(140px, 22vw, 210px);
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin-bottom: 28px;
-    filter: drop-shadow(0 0 40px rgba(201,168,76,0.25));
-  }
-
-  .header-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.85rem, 2vw, 1rem);
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 10px;
-  }
-
-  .header-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    margin-top: 4px;
-    line-height: 1.2;
-  }
-
-  .header-name span { color: var(--gold); font-style: italic; }
-
-  /* ── INTRO SECTION ── */
-  .intro {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 100px 24px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .intro p {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    color: #9a9fa8;
-    line-height: 1.9;
-  }
-
-  .intro p strong {
-    color: var(--white);
-    font-weight: 500;
-  }
-
-  /* ── PROJECT SECTION ── */
-  .project {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 100px 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .project-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-
-  .project-number {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .project-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  .project-name em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .project-tag {
-    display: inline-block;
-    margin-top: 14px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 2px;
-  }
-
-  .project-desc {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
-
-  .project-desc-block h4 {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
-  .project-desc-block p {
-    font-size: 0.92rem;
-    color: #7a7f8a;
-    line-height: 1.8;
-  }
-
-  .project-desc-block ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .project-desc-block ul li {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 4px 12px;
-    border-radius: 2px;
-    letter-spacing: 0.1em;
-  }
-
-  /* ── SCREENSHOTS ── */
-  .screenshots-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 24px;
-    margin-top: 60px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .screenshots-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* NOOR Productions — flex wrap, no stretching */
-  .scr-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: flex-start;
-  }
-
-  .scr-strip .scr-item {
-    flex: 1 1 180px;
-    max-width: 280px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    background: var(--card);
-  }
-
-  .scr-strip .scr-item:hover {
-    transform: translateY(-4px);
-    border-color: var(--gold);
-  }
-
-  .scr-strip .scr-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-/* Styling for the "+X" trigger box */
-/* Remove the @media query so it shows on Desktop too */
-.more-trigger {
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    /* Ensure it behaves like the other items in the grid */
-    flex: 1 1 180px;
-    max-width: 280px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--card);
-}
-
-.blurred-img {
-    filter: blur(8px) brightness(0.4);
-    width: 100%;
-    display: block;
-}
-
-.overlay-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 1.5rem;
-    color: var(--white);
-    font-weight: 700;
-}
-
-.blurred-img {
-    filter: blur(8px) brightness(0.4);
-    width: 100%;
-    display: block;
-}
-
-.overlay-text {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 1.5rem;
-    color: var(--white);
-    font-weight: 700;
-}
-
-/* New: Fullscreen Gallery Overlay */
-.gallery-page {
-    display: none; /* Hidden by default */
-    position: fixed;
-    inset: 0;
-    background: var(--black);
-    z-index: 2000;
-    padding: 40px 24px;
-    overflow-y: auto;
-}
-
-.gallery-page.open { display: block; }
-
-.gallery-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.gallery-grid {
-    display: grid;
-    /* Forces items into 150px squares that automatically wrap */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 150px));
-    gap: 15px;
-    justify-content: center; /* Centers the grid on the screen */
-    padding: 20px;
-}
-
-.gallery-grid img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover; /* Ensures the image fills the square without distortion */
-    border-radius: 8px;
-    cursor: zoom-in;
-    border: 1px solid var(--border);
-    transition: transform 0.2s;
-}
-
-.gallery-grid img:hover {
-    transform: scale(1.05);
-}
-
-  /* MedStore — 2-row grid of phone screenshots */
-  .scr-phone-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 14px;
-    align-items: start;
-  }
-
-  .scr-phone-grid .scr-item {
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    background: var(--card);
-  }
-
-  .scr-phone-grid .scr-item:hover {
-    transform: translateY(-6px);
-    border-color: var(--gold);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  }
-
-  .scr-phone-grid .scr-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Bapi Store — masonry-style flex layout */
-  .scr-bapi {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    align-items: flex-start;
-  }
-
-  .scr-bapi .scr-item {
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    background: var(--card);
-    flex: 1 1 160px;
-    max-width: 260px;
-  }
-
-  .scr-bapi .scr-item.featured {
-    flex: 1 1 220px;
-    max-width: 300px;
-  }
-
-  .scr-bapi .scr-item:hover {
-    transform: translateY(-6px);
-    border-color: var(--gold);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  }
-
-  .scr-bapi .scr-item img { width: 100%; height: auto; display: block; }
-
-  /* ── LIGHTBOX ── */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    z-index: 3000;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    cursor: zoom-out;
-  }
-
-  .lightbox.open { display: flex; }
-
-  .lightbox img {
-    max-height: 90vh;
-    max-width: 90vw;
-    border-radius: 8px;
-    object-fit: contain;
-    cursor: default;
-  }
-
-  .lightbox-close {
-    position: fixed;
-    top: 20px; right: 24px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 2px;
-    background: var(--surface);
-  }
-
-  .lightbox-arrow {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--white);
-    font-size: 1.1rem;
-    cursor: pointer;
-    z-index: 3001;
-    transition: background 0.2s ease, border-color 0.2s ease;
-  }
-
-  .lightbox-arrow:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--black);
-  }
-
-  .lightbox-prev { left: 24px; }
-  .lightbox-next { right: 24px; }
-
-  @media (max-width: 640px) {
-    .lightbox-arrow { width: 40px; height: 40px; font-size: 0.95rem; }
-    .lightbox-prev { left: 10px; }
-    .lightbox-next { right: 10px; }
-  }
-
-  /* ── CONTACT ── */
-  .contact {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 100px 24px 120px;
-    text-align: center;
-  }
-
-  .contact-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .contact h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 16px;
-    line-height: 1.15;
-  }
-
-  .contact p {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-bottom: 48px;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 32px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--white);
-    font-size: 0.9rem;
-    font-weight: 400;
-    width: 100%;
-    max-width: 420px;
-    transition: border-color 0.25s, background 0.25s;
-    background: var(--card);
-  }
-
-  .contact-link:hover {
-    border-color: var(--gold);
-    background: #16140f;
-  }
-
-  .contact-link .cl-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
-
-  .contact-link .cl-icon.wa { background: #1a3d25; }
-  .contact-link .cl-icon.em { background: #1a1f3a; }
-
-  .contact-link .cl-info { text-align: left; }
-  .contact-link .cl-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .contact-link .cl-val { font-size: 0.88rem; color: var(--white); }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 24px;
-    text-align: center;
-  }
-
-  footer p {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  footer span { color: var(--gold); }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    .project-desc { grid-template-columns: 1fr; gap: 24px; }
-    .scr-bapi { grid-template-columns: 1fr 1fr; }
-    .scr-bapi .scr-item.featured { grid-row: auto; grid-column: 1 / -1; }
-    .project-header { grid-template-columns: 1fr; }
-    .scr-phone-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-/* Add this to your style block */
-.portfolio-link {
-    display: inline-block;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    border-bottom: 1px solid var(--gold);
-    padding-bottom: 2px;
-    transition: all 0.3s ease;
-}
-
-.portfolio-link:hover {
-    color: var(--white);
-    border-bottom-color: var(--white);
-    letter-spacing: 0.15em;
-}
-
+  .links a:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .links small{color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .links b{font-size:15px;font-weight:600;word-break:break-all;color:var(--teal)}
+  footer{color:var(--muted);font-size:13px;text-align:center;max-width:520px;line-height:1.5}
 </style>
 </head>
 <body>
-<!--Device Detector-->
-<script>
-  // Simple device detection logic
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  if (isMobile) {
-    document.body.classList.add('mobile');
-  }
-</script>
-
-<!-- HEADER -->
-<header>
-  <div class="header-bg"></div>
-  <div class="header-content">
-    <p class="header-eyebrow">Portfolio · 2026</p>
-    <img class="header-badge" src="Portfolio/Noor Productions Logo.png" alt="NOOR Productions Logo">
-    <h1 class="header-name">NOOR <span>Productions</span></h1>
-    <p class="header-sub">Web Design &amp; Digital Architecture</p>
-  </div>
-</header>
-
-<!-- INTRO -->
-<section class="intro reveal">
-  <p>
-    We build <strong>digital experiences</strong> that make businesses look premium, move fast, and convert. Every project below was designed, developed, and delivered by NOOR Productions — from a single landing page to a fully functional e-commerce system.
-  </p>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     PROJECT 01 — NOOR PRODUCTIONS AGENCY SITE
-════════════════════════════════════════════ -->
-<section class="project reveal">
-  <div class="project-header">
-    <div>
-      <p class="project-number">Project 01</p>
-      <h2 class="project-name">NOOR <em>Productions</em><br>Agency Site</h2>
-      <span class="project-tag">Agency · Freelance Portal · Built For Mobile</span>
-    </div>
-  </div>
-
-  <div class="project-desc">
-    <div class="project-desc-block">
-      <h4>About</h4>
-      <p>
-        The official NOOR Productions mobile portal — a dark, premium agency site that showcases services, pricing, and a project catalog. Features a smooth image carousel, lightbox viewer, and a floating WhatsApp contact panel.
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Note</h4>
-      <p>This website is dedicated to mobile devices, a completely different website is currently being developed by us for bigger screens. <br> Thanking you, <br> NOOR Productions</p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Built With</h4>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Vanilla JS</li>
-        <li>Mobile First</li>
-        <li>Lightbox</li>
-        <li>Auto Carousel</li>
-      </ul>
-      <h4 style="margin-top: 20px;">External Link</h4>
-      <a href="https://sk-abdus-sattar.github.io/noor-productions/" target="_blank" class="portfolio-link">
-        View Live Project →
-      </a>
-    </div>
-  </div>
-
-  <div class="scr-strip" id="strip-Project01">
-    <div class="scr-item more-trigger" onclick="openGalleryPage('Project01')">
-      <img src="" class="blurred-img" alt="Gallery">
-      <div class="overlay-text" id="count-Project01">+0</div>
-    </div>
-  </div>
-</section>
 
 
-<!-- ═══════════════════════════════════════════
-     PROJECT 02 — MEDSTORE BARDHAMAN
-════════════════════════════════════════════ -->
-<section class="project reveal">
-  <div class="project-header">
-    <div>
-      <p class="project-number">Project 02</p>
-      <h2 class="project-name">Med<em>Store</em><br>Bardhaman</h2>
-      <span class="project-tag">Pharmacy App · E-Commerce · Neo-Brutalist</span>
-    </div>
-  </div>
+<h1>This website has <span>moved</span></h1>
+<p class="sub">You've reached the old home of NOOR Productions. Everything we do now lives on our new website.</p>
 
-  <div class="project-desc">
-    <div class="project-desc-block">
-      <h4>About</h4>
-      <p>
-        A full-featured pharmacy web app for a local medicine store in Bardhaman. Customers can browse medicines, view ingredients and availability, add to cart, and place orders via WhatsApp. Includes a live Google Maps integration and a contacts page.
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Built With</h4>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Vanilla JS</li>
-        <li>Google Maps API</li>
-        <li>WhatsApp Order</li>
-        <li>Cart System</li>
-      </ul>
-      <h4 style="margin-top: 20px;">External Link</h4>
-      <p style="margin-bottom: 10px;">View the live pharmacy app to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/MedStore/" 
-         target="_blank" 
-         class="portfolio-link">
-         View Live Project →
-      </a>
-    </div>
-  </div>
- <div class="scr-strip" id="strip-Project02">
-    <div class="scr-item more-trigger" onclick="openGalleryPage('Project02')">
-      <img src="" class="blurred-img" alt="Gallery">
-      <div class="overlay-text" id="count-Project02">+0</div>
-    </div>
-  </div>
-</section>
+<div class="scene">
+<svg viewBox="0 0 800 640" role="img" aria-label="At dusk a delivery truck marked ZIP drives over the horizon along a road, while a girl in pink pajamas waves goodbye">
+  <defs>
+    <clipPath id="card"><rect x="10" y="10" width="780" height="620" rx="52"/></clipPath>
+    <clipPath id="skyclip"><rect x="0" y="0" width="800" height="320"/></clipPath>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14122e"/><stop offset=".42" stop-color="#2f2060"/>
+      <stop offset=".7" stop-color="#8a3d72"/><stop offset=".88" stop-color="#e5675a"/>
+      <stop offset="1" stop-color="#ffb066"/>
+    </linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2745"/><stop offset=".35" stop-color="#1c1530"/><stop offset="1" stop-color="#0a0814"/>
+    </linearGradient>
+    <radialGradient id="sunglow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffd27a" stop-opacity=".85"/><stop offset="1" stop-color="#ffb066" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tail" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ff4d4d" stop-opacity=".8"/><stop offset="1" stop-color="#ff4d4d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 
-<!-- ═══════════════════════════════════════════
-     PROJECT 03 — BAPI STORE
-════════════════════════════════════════════ -->
-<section class="project reveal">
-  <div class="project-header">
-    <div>
-      <p class="project-number">Project 03</p>
-      <h2 class="project-name">Bapi <em>Store</em><br>Bardhaman</h2>
-      <span class="project-tag">Neighbourhood Store · E-Commerce · Dark Luxury</span>
-    </div>
-  </div>
+  <g clip-path="url(#card)">
+    <!-- sky -->
+    <rect x="0" y="0" width="800" height="320" fill="url(#sky)"/>
+    <g fill="#F2EFE6">
+      <circle cx="70" cy="50" r="1.8"/><circle cx="210" cy="34" r="1.5"/><circle cx="330" cy="62" r="1.2"/>
+      <circle cx="450" cy="30" r="1.8"/><circle cx="560" cy="58" r="1.4"/><circle cx="660" cy="36" r="1.8"/>
+      <circle cx="740" cy="84" r="1.3"/><circle cx="520" cy="104" r="1.1"/><circle cx="620" cy="120" r="1.2"/><circle cx="390" cy="92" r="1"/>
+    </g>
+    <!-- dusk cloud streaks -->
+    <g fill="#f08a7a" opacity=".35">
+      <ellipse cx="560" cy="210" rx="150" ry="7"/><ellipse cx="690" cy="236" rx="100" ry="5"/>
+      <ellipse cx="330" cy="248" rx="120" ry="5"/><ellipse cx="450" cy="190" rx="90" ry="4"/>
+    </g>
+    <!-- setting sun -->
+    <g clip-path="url(#skyclip)">
+      <circle cx="430" cy="320" r="150" fill="url(#sunglow)"/>
+      <circle cx="430" cy="320" r="46" fill="#ffd27a"/>
+    </g>
+    <!-- ground -->
+    <rect x="0" y="320" width="800" height="320" fill="url(#land)"/>
+    <!-- road: starts at the lower-left corner, rises to the horizon -->
+    <path d="M 535,320 C 520,420 250,470 -40,520 L -40,700 L 310,700 C 480,580 640,430 648,320 Z" fill="#2c2438"/>
+    <path d="M 535,320 C 520,420 250,470 -40,520" fill="none" stroke="#ffb066" stroke-width="3" opacity=".55"/>
+    <path d="M 648,320 C 640,430 480,580 310,700" fill="none" stroke="#ffb066" stroke-width="3" opacity=".35"/>
+    <path d="M 592,322 C 580,430 400,520 140,610 L -40,660" fill="none" stroke="#ffd9a0" stroke-width="5" stroke-dasharray="26 20" opacity=".8"/>
+  </g>
 
-  <div class="project-desc">
-    <div class="project-desc-block">
-      <h4>About</h4>
-      <p>
-        A premium dark-themed store app for a neighbourhood shop near Curzon Gate, Bardhaman. Features a cinematic hero, featured products, category filtering, a full cart system with WhatsApp ordering, live Google Maps, and store hours.
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Built With</h4>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Vanilla JS</li>
-        <li>Google Maps API</li>
-        <li>WhatsApp Order</li>
-        <li>Category Filter</li>
-        <li>Side Drawer Nav</li>
-      </ul>
-      <h4 style="margin-top: 20px;">External Link</h4>
-      <p style="margin-bottom: 10px;">View the live neighbourhood store app to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/General Store/" 
-         target="_blank" 
-         class="portfolio-link">
-         View Live Project →
-      </a>
-    </div>
-  </div>
- <div class="scr-strip" id="strip-Project03">
-    <div class="scr-item more-trigger" onclick="openGalleryPage('Project03')">
-      <img src="" class="blurred-img" alt="Gallery">
-      <div class="overlay-text" id="count-Project03">+0</div>
-    </div>
-  </div>
-</section>
+  <!-- dust cloud rising behind the truck, lit by the sun -->
+  <g clip-path="url(#skyclip)" fill="#ffb98a">
+    <circle cx="560" cy="300" r="20" opacity=".3"/><circle cx="600" cy="290" r="26" opacity=".25"/>
+    <circle cx="640" cy="302" r="18" opacity=".3"/><circle cx="585" cy="268" r="16" opacity=".18"/>
+  </g>
 
-<!-- ═══════════════════════════════════════════
-     PROJECT 04 — DELHI BOUTIQUE
-════════════════════════════════════════════ -->
-<section class="project reveal">
-  <div class="project-header">
-    <div>
-      <p class="project-number">Project 04</p>
-      <h2 class="project-name">Delhi <em>Boutique</em><br>Bardhaman</h2>
-      <span class="project-tag">Fashion App · E-Commerce · Exceptional</span>
-    </div>
-  </div>
+  <!-- TRUCK: rear view, everything below the horizon has already passed over it -->
+  <g clip-path="url(#skyclip)">
+    <g transform="translate(592,328)">
+      <rect x="-62" y="-27" width="124" height="27" rx="3" fill="#1B4A46"/>
+      <rect x="-62" y="-27" width="124" height="5" fill="#2DD4BF"/>
+      <circle cx="-48" cy="-12" r="22" fill="url(#tail)"/><circle cx="48" cy="-12" r="22" fill="url(#tail)"/>
+      <rect x="-56" y="-18" width="16" height="9" rx="2" fill="#ff4d4d"/>
+      <rect x="40" y="-18" width="16" height="9" rx="2" fill="#ff4d4d"/>
+      <rect x="-58" y="-66" width="38" height="40" rx="2" fill="#C9A66B"/><rect x="-42.0" y="-66" width="6" height="40" fill="#a98a52"/><text x="-39.0" y="-42.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text><rect x="-19" y="-66" width="38" height="40" rx="2" fill="#D8B77C"/><rect x="-3.0" y="-66" width="6" height="40" fill="#b9985f"/><text x="0.0" y="-42.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text><rect x="20" y="-66" width="38" height="40" rx="2" fill="#C9A66B"/><rect x="36.0" y="-66" width="6" height="40" fill="#a98a52"/><text x="39.0" y="-42.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text><rect x="-40" y="-100" width="38" height="34" rx="2" fill="#D8B77C"/><rect x="-24.0" y="-100" width="6" height="34" fill="#b9985f"/><text x="-21.0" y="-79.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text><rect x="2" y="-100" width="38" height="34" rx="2" fill="#C9A66B"/><rect x="18.0" y="-100" width="6" height="34" fill="#a98a52"/><text x="21.0" y="-79.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text><rect x="-19" y="-132" width="38" height="32" rx="2" fill="#C9A66B"/><rect x="-3.0" y="-132" width="6" height="32" fill="#a98a52"/><text x="0.0" y="-112.0" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2a1a10" opacity=".9">ZIP</text>
+    </g>
+  </g>
 
-  <div class="project-desc">
-    <div class="project-desc-block">
-      <h4>About</h4>
-      <p>
-        A full-featured fashion web app for a local boutique in Bardhaman. Customers can browse clothing items, view details and availability, add to cart, and place orders. Something exceptional in it's niche, since most of the other boutiques still use staticand outdated websites.
-      </p>
-      <h4> Note </h4>
-      <p>This site is currently under maintenance. You may face errors while going through it.
-        Thanking you for your patience, <br>
-        NOOR Productions
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Built With</h4>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Vanilla JS</li>
-        <li>Firebase</li>
-        <li>Automated Ordering System</li>
-        <li>Fully Functional E-Commerce Platform</li>
-        <li>Cart System</li>
-      </ul>
-      <h4 style="margin-top: 20px;">External Link</h4>
-      <p style="margin-bottom: 10px;">View the live fashion app to experience the full interaction.</p>
-      <a href="https://sk-abdus-sattar.github.io/Delhi-Boutique/" 
-         target="_blank" 
-         class="portfolio-link">
-         View Live Project →
-      </a>
-    </div>
-  </div>
- <div class="scr-strip" id="strip-Project04">
-    <div class="scr-item more-trigger" onclick="openGalleryPage('Project04')">
-      <img src="" class="blurred-img" alt="Gallery">
-      <div class="overlay-text" id="count-Project04">+0</div>
-    </div>
-  </div>
-</section>
+  <!-- horizon line -->
+  <line x1="10" y1="320" x2="790" y2="320" stroke="#ffb066" stroke-width="3" opacity=".9"/>
 
-<!-- ═══════════════════════════════════════════
-     PROJECT 05 — NOOR PRODUCTIONS AGENCY SITE (BIGGER SCREENS)
-════════════════════════════════════════════ -->
-<section class="project reveal">
-  <div class="project-header">
-    <div>
-      <p class="project-number">Project 05</p>
-      <h2 class="project-name">NOOR <em>Productions</em><br>Agency Site</h2>
-      <span class="project-tag">Agency · Freelance Portal · Built For Bigger Screens</span>
-    </div>
-  </div>
+  <!-- girl, nearer the upper-left corner -->
+  <ellipse cx="150" cy="340" rx="30" ry="5" fill="#06030c" opacity=".55"/>
+  <g transform="translate(150,338) scale(.5)">
+    <!-- legs -->
+    <rect x="-32" y="-124" width="29" height="104" rx="12" fill="#F4A6C0"/>
+    <rect x="3" y="-124" width="29" height="104" rx="12" fill="#F4A6C0"/>
+    <path d="M -32,-60 H -3 M 3,-60 H 32" stroke="#fff" stroke-width="3" opacity=".7"/>
+    <ellipse cx="-19" cy="-12" rx="19" ry="11" fill="#F2C9A5"/>
+    <ellipse cx="19" cy="-12" rx="19" ry="11" fill="#F2C9A5"/>
+    <!-- left arm (hanging) -->
+    <line x1="-40" y1="-192" x2="-58" y2="-122" stroke="#F8BBD0" stroke-width="26" stroke-linecap="round"/>
+    <circle cx="-59" cy="-108" r="13" fill="#F2C9A5"/>
+    <!-- torso -->
+    <rect x="-44" y="-212" width="88" height="106" rx="26" fill="#F8BBD0"/>
+    <path d="M 0,-205 V -112" stroke="#e48aa9" stroke-width="2"/>
+    <g fill="#fff"><circle cx="0" cy="-185" r="4"/><circle cx="0" cy="-160" r="4"/><circle cx="0" cy="-135" r="4"/></g>
+    <!-- hearts on top -->
+    <g fill="#e48aa9"><circle cx="-24" cy="-170" r="3"/><circle cx="24" cy="-150" r="3"/><circle cx="-26" cy="-128" r="3"/></g>
+    <!-- right arm (waving, raised) -->
+    <line x1="40" y1="-198" x2="86" y2="-262" stroke="#F8BBD0" stroke-width="26" stroke-linecap="round"/>
+    <circle cx="90" cy="-276" r="15" fill="#F2C9A5"/>
+    <!-- wave arcs -->
+    <g fill="none" stroke="#e48aa9" stroke-width="4" stroke-linecap="round">
+      <path d="M 114,-300 q 16,14 6,34"/>
+      <path d="M 126,-310 q 22,20 8,46"/>
+      <path d="M 66,-304 q -16,6 -20,26" opacity=".7"/>
+    </g>
+    <!-- neck + head -->
+    <rect x="-9" y="-232" width="18" height="24" rx="6" fill="#F2C9A5"/>
+    <!-- pigtails -->
+    <circle cx="-44" cy="-250" r="17" fill="#2b1b17"/>
+    <circle cx="44" cy="-250" r="17" fill="#2b1b17"/>
+    <circle cx="-44" cy="-250" r="6" fill="#F4A6C0"/>
+    <circle cx="44" cy="-250" r="6" fill="#F4A6C0"/>
+    <circle cx="0" cy="-252" r="36" fill="#F2C9A5"/>
+    <path d="M -37,-258 Q -34,-292 0,-292 Q 34,-292 37,-258 Q 20,-274 0,-272 Q -20,-274 -37,-258 Z" fill="#2b1b17"/>
+    <!-- face -->
+    <circle cx="-13" cy="-252" r="3.6" fill="#2b1b17"/>
+    <circle cx="13" cy="-252" r="3.6" fill="#2b1b17"/>
+    <circle cx="-22" cy="-240" r="6" fill="#f2a1a8" opacity=".6"/>
+    <circle cx="22" cy="-240" r="6" fill="#f2a1a8" opacity=".6"/>
+    <path d="M -11,-236 Q 0,-224 11,-236" fill="none" stroke="#2b1b17" stroke-width="3" stroke-linecap="round"/>
+  </g>
 
-  <div class="project-desc">
-    <div class="project-desc-block">
-      <h4>About</h4>
-      <p>
-        The official NOOR Productions website — a dark, premium agency site built entirely for bigger screens than mobiles that showcases how we work, pricings, client reviews, few blogs and flashcards to educate business owners about the current situation of web development with answers to few frequently asked questions. All these built with 100% responsiveness and a hero with 3D morphing particles forming selective shapes.
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Note</h4>
-      <p>
-        This website is still under development and hence you can not visit it live. <br> Thanking you, <br> NOOR Productions
-      </p>
-    </div>
-    <div class="project-desc-block">
-      <h4>Built With</h4>
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Vanilla JS</li>
-        <li>3D Morphing Particles</li>
-        <li>Responsive Design</li>
-        <li>Flashcards</li>
-        <li>100% Responsiveness</li>
-        <li>Educating</li>
-      </ul>
-    </div>
-  </div>
+  <!-- speech bubble -->
+  <g transform="translate(-25,30)">
+  <path d="M 326,108 H 464 Q 490,108 490,134 V 148 Q 490,174 464,174 H 326 Q 300,174 300,148 V 152 L 246,162 L 300,134 Q 300,108 326,108 Z" fill="#F2EFE6" stroke="#06130F" stroke-width="3" stroke-linejoin="round"/>
+  <text x="395" y="138" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="24" fill="#06130F">Bye-bye! 👋</text>
+  <text x="395" y="160" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-size="15" fill="#1B4A46">We've moved</text>
+  </g>
 
-  <div class="scr-strip" id="strip-Project05">
-    <div class="scr-item more-trigger" onclick="openGalleryPage('Project05')">
-      <img src="" class="blurred-img" alt="Gallery">
-      <div class="overlay-text" id="count-Project05">+0</div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact reveal">
-  <p class="contact-eyebrow">Get In Touch</p>
-  <h2>Let's build something<br><em style="font-style:italic; color:var(--gold)">remarkable</em> together.</h2>
-  <p>Have a project in mind? Reach out and we'll get back to you within 24 hours.</p>
-  <div class="contact-links">
-    <a class="contact-link" href="https://www.instagram.com/noorproductions.official" target="_blank">
-      <div class="cl-icon wa">💬</div>
-      <div class="cl-info">
-        <span class="cl-label">Instagram</span>
-        <span class="cl-val">noorproductions.official</span>
-      </div>
-    </a>
-    <a class="contact-link" href="mailto:noorproductions.as@gmail.com">
-      <div class="cl-icon em">✉️</div>
-      <div class="cl-info">
-        <span class="cl-label">Email</span>
-        <span class="cl-val">noorproductions.as@gmail.com</span>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 <span>NOOR Productions</span> · All Rights Reserved · Built with precision.</p>
-</footer>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLB()">
-  <div class="lightbox-close" onclick="closeLB()">ESC · CLOSE</div>
-  <div class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); navLB(-1)">&#10094;</div>
-  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
-  <div class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); navLB(1)">&#10095;</div>
+  <!-- off-white frame -->
+  <rect x="10" y="10" width="780" height="620" rx="52" fill="none" stroke="#F2EFE6" stroke-width="10"/>
+</svg>
 </div>
 
-<script>
-  // 1. Lightbox Functions
-  let currentGallery = [];
-  let currentIndex = 0;
-
-  function openLB(src, gallery) {
-    currentGallery = gallery || [src];
-    currentIndex = currentGallery.indexOf(src);
-    if (currentIndex === -1) currentIndex = 0;
-    document.getElementById('lb-img').src = src;
-    document.getElementById('lightbox').classList.add('open');
-    updateArrowVisibility();
-  }
-  function closeLB() {
-    document.getElementById('lightbox').classList.remove('open');
-  }
-  function navLB(direction) {
-    if (!currentGallery.length) return;
-    currentIndex = (currentIndex + direction + currentGallery.length) % currentGallery.length;
-    document.getElementById('lb-img').src = currentGallery[currentIndex];
-  }
-  function updateArrowVisibility() {
-    const show = currentGallery.length > 1 ? 'flex' : 'none';
-    document.querySelectorAll('.lightbox-arrow').forEach(a => a.style.display = show);
-  }
-
-  // 2. Gallery Functions
-  function initGallery() {
-    Object.keys(projectData).forEach(id => {
-        const images = projectData[id];
-        const countBox = document.getElementById(`count-${id}`);
-        const triggerImg = document.querySelector(`#strip-${id} .blurred-img`);
-        if (countBox) countBox.innerText = `+${images.length}`;
-        if (triggerImg) triggerImg.src = images[0]; 
-    });
-  }
-
-  function openGalleryPage(projectId) {
-    const grid = document.getElementById('gallery-content');
-    grid.innerHTML = '';
-    projectData[projectId].forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.onclick = () => openLB(src, projectData[projectId]); 
-        grid.appendChild(img);
-    });
-    document.getElementById('gallery-page').classList.add('open');
-  }
-
-  function closeGallery() {
-    document.getElementById('gallery-page').classList.remove('open');
-  }
-
-  // 3. Global Listeners
-  document.addEventListener('keydown', e => { 
-    if (e.key === 'Escape') {
-        closeLB();
-        closeGallery();
-    } 
-    if (document.getElementById('lightbox').classList.contains('open')) {
-        if (e.key === 'ArrowLeft') navLB(-1);
-        if (e.key === 'ArrowRight') navLB(1);
-    }
-  });
-
-  // 4. Initialization
-  const projectData = {
-    'Project01': ['Portfolio/scr7.png', 'Portfolio/scr9.png', 'Portfolio/catalog.png', 'Portfolio/scr8.png'],
-    'Project02': ['Portfolio/scr10.png', 'Portfolio/scr11.png', 'Portfolio/scr12.png', 'Portfolio/scr13.png', 'Portfolio/scr14.png', 'Portfolio/scr16.png', 'Portfolio/scr18.png', 'Portfolio/scr19.png'],
-    'Project03': ['Portfolio/scr1.png', 'Portfolio/scr2.png', 'Portfolio/scr3.png', 'Portfolio/scr4.png', 'Portfolio/scr5.png', 'Portfolio/scr6.png', 'Portfolio/scr17.png'],
-    'Project04': ['Portfolio/scr30.png', 'Portfolio/scr31.png', 'Portfolio/scr32.png', 'Portfolio/scr33.png', 'Portfolio/scr34.png', 'Portfolio/scr35.png', 'Portfolio/scr36.png', 'Portfolio/scr37.png', 'Portfolio/scr38.png', 'Portfolio/scr39.png', 'Portfolio/scr40.png', 'Portfolio/scr41.png', 'Portfolio/scr42.png', 'Portfolio/scr43.png', 'Portfolio/scr44.png', 'Portfolio/scr45.png', 'Portfolio/scr46.png', 'Portfolio/scr47.png', 'Portfolio/scr48.png', 'Portfolio/scr49.png', 'Portfolio/scr50.png', 'Portfolio/scr51.png', 'Portfolio/scr52.png', 'Portfolio/scr53.png', 'Portfolio/scr54.png', 'Portfolio/scr55.png', 'Portfolio/scr56.png', 'Portfolio/scr57.png', 'Portfolio/scr58.png', 'Portfolio/scr59.png', 'Portfolio/scr60.png', 'Portfolio/scr61.png', 'Portfolio/scr62.png', 'Portfolio/scr63.png', 'Portfolio/scr64.png', 'Portfolio/scr65.png', 'Portfolio/scr66.png', 'Portfolio/scr67.png', 'Portfolio/scr68.png', 'Portfolio/scr69.png', 'Portfolio/scr70.png', 'Portfolio/scr71.png'],
-    'Project05': ['Portfolio/1.jpg','Portfolio/17.jpg','Portfolio/2.jpg','Portfolio/3.jpg','Portfolio/4.jpg','Portfolio/5.jpg','Portfolio/6.jpg','Portfolio/7.jpg','Portfolio/8.jpg','Portfolio/9.jpg','Portfolio/10.jpg','Portfolio/11.jpg','Portfolio/12.jpg','Portfolio/13.jpg','Portfolio/14.jpg','Portfolio/15.jpg','Portfolio/16.jpg']
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  window.onload = initGallery;
-</script>
-<div id="gallery-page" class="gallery-page">
-  <div class="gallery-header">
-    <h2>Screenshots</h2>
-    <span onclick="closeGallery()" style="cursor:pointer;">ESC · CLOSE</span>
-  </div>
-  <div class="gallery-grid" id="gallery-content"></div>
+<div class="moved">
+  <p>We have moved to</p>
+  <a class="cta" href="https://noorproductions.in/">noorproductions.in</a>
 </div>
+
+<div class="links">
+  <a href="https://noorproductions.in/"><small>New website</small><b>noorproductions.in</b></a>
+  <a href="https://instagram.com/noorproductions.official" target="_blank" rel="noopener"><small>Instagram</small><b>@noorproductions.official</b></a>
+  <a href="https://wa.me/919832596691" target="_blank" rel="noopener"><small>WhatsApp</small><b>+91 98325 96691</b></a>
+</div>
+
 </body>
 </html>
